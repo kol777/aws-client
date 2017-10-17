@@ -1,0 +1,23 @@
+{
+  "name": "aws-client",
+  "version": "1.0.0",
+  "description": "aws-client for iam",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kolxd/aws-client.git"
+  },
+  "keywords": [
+    "aws",
+    "iam"
+  ],
+  "author": "flavius",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kolxd/aws-client/issues"
+  },
+  "homepage": "https://github.com/kolxd/aws-client#readme"
+}
