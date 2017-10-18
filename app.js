@@ -1,9 +1,11 @@
+//http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IAM.html#listGroupsForUser-property
+
 const express = require('express');
 
 const aws = require('aws-sdk');
 
 //credentials
-
+const users = require('./config/user')
 //const keys = require('./config/keys');
 // var config = new aws.Config({
 //   accessKeyId: keys.admin_iam.aws_access_key_id,
@@ -30,14 +32,31 @@ const authRoutes = require('./routes/auth-routes');
 
 const app = express();
 
-var params = {
-  UserName: 'Bob'
-};
+// var params =
+// {
+//   UserName: 'Bob'
+//   //Path: '/'
+// };
 
-iam.createUser(params, function(err, data){
+for(var i in users){
+  console.log(i)
+// iam.createUser(i, function(err, data){
+//    if (err) console.log(err, err.stack); // an error occurred
+//    else     console.log(data);           // successful response
+// });
+}
+// CREATING USER
+// iam.createUser(params, function(err, data){
+//   if (err) console.log(err, err.stack); // an error occurred
+//   else     console.log(data);           // successful response
+// });
+
+// LISTING USER
+par = {};
+iam.listUsers(par, function(err, data){
   if (err) console.log(err, err.stack); // an error occurred
   else     console.log(data);           // successful response
-}).promise();
+});
 
 // set up ejs view
 app.set('view engine', 'ejs');

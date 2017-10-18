@@ -23,6 +23,8 @@
   "dependencies": {
     "aws-sdk": "^2.134.0",
     "ejs": "^2.5.7",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "passport": "^0.4.0",
+    "passport-amazon": "^1.0.0"
   }
 }
