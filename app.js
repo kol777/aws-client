@@ -6,12 +6,6 @@ const aws = require('aws-sdk');
 
 //credentials
 const users = require('./config/user')
-//const keys = require('./config/keys');
-// var config = new aws.Config({
-//   accessKeyId: keys.admin_iam.aws_access_key_id,
-//   secretAccessKey: keys.admin_iam.aws_secret_access_key
-// });
-// aws.config.credentials = config;
 
 var credentials = new aws.SharedIniFileCredentials({profile: 'admin'});
 aws.config.credentials = credentials;
@@ -32,26 +26,58 @@ const authRoutes = require('./routes/auth-routes');
 
 const app = express();
 
-// var params =
-// {
-//   UserName: 'Bob'
-//   //Path: '/'
-// };
+const createUser = (userName) => {
+  let params = {
+    UserName: userName,
+    Path: '/'
+  };
+  return iam.createUser(params, function(err, data){
+    if (err) console.log(err, err.stack); // an error occurred
+    else     console.log(data);           // successful response
+  });
+};
 
-for(var i in users){
-  console.log(i)
-// iam.createUser(i, function(err, data){
-//    if (err) console.log(err, err.stack); // an error occurred
-//    else     console.log(data);           // successful response
-// });
-}
+const createGroup = (groupName) => {
+  let params = {
+    GroupName: groupName,
+    Path: '/'
+  };
+  return iam.createGroup(params, function(err, data){
+    if (err) console.log(err, err.stack); // an error occurred
+    else     console.log(data);           // successful response
+  });
+};
+
+const addUserToGroup = (groupName, userName) => {
+  let params = {
+    GroupName: groupName,
+    UserName: userName
+  };
+  return iam.addUserToGroup(params, function(err, data){
+    if (err) console.log(err, err.stack); // an error occurred
+    else     console.log(data);           // successful response
+  });
+};
+
+
+Object.values(users).forEach(function (key) {
+  console.log(key);
+  createGroup(key.GroupName);
+  createUser(key.UserName);
+  addUserToGroup(key.GroupName, key.UserName)
+  // iam.deleteUser(key, function(err, data){
+  //   if (err) console.log(err, err.stack); // an error occurred
+  //   else     console.log(data);           // successful response
+  // });
+});
+
 // CREATING USER
 // iam.createUser(params, function(err, data){
 //   if (err) console.log(err, err.stack); // an error occurred
 //   else     console.log(data);           // successful response
 // });
 
-// LISTING USER
+// LISTING USERS
 par = {};
 iam.listUsers(par, function(err, data){
   if (err) console.log(err, err.stack); // an error occurred
