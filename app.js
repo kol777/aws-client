@@ -6,6 +6,7 @@ const aws = require('aws-sdk');
 
 //credentials
 const users = require('./config/user')
+const policy = require('./config/policy')
 
 var credentials = new aws.SharedIniFileCredentials({profile: 'admin'});
 aws.config.credentials = credentials;
@@ -59,7 +60,23 @@ const addUserToGroup = (groupName, userName) => {
   });
 };
 
+const createPolicy = (policyDocument, policyName) => {
+  let params = {
+    PolicyDocument: policyDocument,
+    PolicyName: policyName
+  };
+  return iam.createPolicy(params, function(err, data) {
+    if (err) console.log(err, err.stack); // an error occurred
+    else     console.log(data);           // successful response
+  });
+};
 
+Object.values(policy).forEach(function (pol){
+  createPolicy(JSON.stringify(pol.PolicyDocument), pol.PolicyName)
+  //console.log(JSON.stringify(pol.PolicyDocument))
+});
+
+Creating Users/Groups and adding users to groups
 Object.values(users).forEach(function (key) {
   console.log(key);
   createGroup(key.GroupName);
