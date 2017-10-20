@@ -76,7 +76,7 @@ Object.values(policy).forEach(function (pol){
   //console.log(JSON.stringify(pol.PolicyDocument))
 });
 
-Creating Users/Groups and adding users to groups
+//Creating Users/Groups and adding users to groups
 Object.values(users).forEach(function (key) {
   console.log(key);
   createGroup(key.GroupName);
